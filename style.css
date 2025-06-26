@@ -1,0 +1,525 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c1b;
+            color: #e0e0ff;
+            font-family: 'Roboto Mono', monospace;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Glitch Animation Keyframes */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-top {
+            0% { clip-path: polygon(0 0, 100% 0, 100% 2%, 0 2%); }
+            100% { clip-path: polygon(0 0, 100% 0, 100% 4%, 0 4%); }
+        }
+
+        @keyframes glitch-bottom {
+            0% { clip-path: polygon(0 98%, 100% 98%, 100% 100%, 0 100%); }
+            100% { clip-path: polygon(0 96%, 100% 96%, 100% 100%, 0 100%); }
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section {
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.4s; }
+        section:nth-child(4) { animation-delay: 0.6s; }
+
+        /* Neon Line Divider */
+        .divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffcc, transparent);
+            margin: 2rem 0;
+            animation: neonPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Navbar and Sidebar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 12, 27, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid #00ffcc;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        nav .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #e0e0ff;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00ffcc;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #00ffcc;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            color: #00ffcc;
+            cursor: pointer;
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 250px;
+            height: 100vh;
+            background: rgba(10, 12, 27, 0.95);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            transition: right 0.3s ease;
+            z-index: 99;
+            border-left: 1px solid #00ffcc;
+        }
+
+        #sidebar:target {
+            right: 0;
+            animation: glitch 0.3s linear 2;
+        }
+
+        #sidebar ul {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        #sidebar a {
+            font-size: 1.2rem;
+        }
+
+        .close-btn {
+            align-self: flex-end;
+            color: #00ffcc;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section with Parallax */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(45deg, #0a0c1b, #1a1e3b, #2a2e5b);
+            background-size: 400%;
+            animation: gradient 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 10px,
+                rgba(0, 255, 204, 0.05) 10px,
+                rgba(0, 255, 204, 0.05) 11px
+            );
+            transform: translateZ(-100px);
+            opacity: 0.5;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            color: #00ffcc;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            transform: translateZ(50px);
+        }
+
+        .hero h1::before,
+        .hero h1::after {
+            content: 'Welcome to Dashvo';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #ff00cc;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero h1::before {
+            animation: glitch-top 1s linear infinite;
+            transform: translate(-2px, -2px);
+        }
+
+        .hero h1::after {
+            animation: glitch-bottom 1.5s linear infinite;
+            transform: translate(2px, 2px);
+        }
+
+        .hero h1:hover {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 5rem 2rem;
+            background: #0a0c1b;
+            position: relative;
+        }
+
+        .projects h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #00ffcc;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .projects h2:hover {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(20, 22, 47, 0.8);
+            padding: 2rem;
+            border: 1px solid #00ffcc;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 255, 204, 0.2),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .project-card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+        }
+
+        .project-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: #e0e0ff;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: #b0b0ff;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .project-card a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+            text-decoration: none;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s;
+        }
+
+        .project-card a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #00ffcc;
+            transition: left 0.3s;
+        }
+
+        .project-card a:hover::before {
+            left: 0;
+        }
+
+        .project-card a:hover {
+            color: #0a0c1b;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: #0a0c1b;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #00ffcc;
+            margin-bottom: 3rem;
+        }
+
+        .contact h2:hover {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: 2px solid #00ffcc;
+            border-radius: 5px;
+            color: #e0e0ff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: box-shadow 0.3s;
+        }
+
+        .contact-form label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: #b0b0ff;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .contact-form input:focus + label,
+        .contact-form textarea:focus + label,
+        .contact-form input:not(:placeholder-shown) + label,
+        .contact-form textarea:not(:placeholder-shown) + label {
+            top: -0.8rem;
+            left: 0.5rem;
+            font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+            color: #00ffcc;
+            background: #0a0c1b;
+            padding: 0 0.5rem;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-form button {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s;
+        }
+
+        .contact-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #00ffcc;
+            transition: left 0.3s;
+        }
+
+        .contact-form button:hover::before {
+            left: 0;
+        }
+
+        .contact-form button:hover {
+            color: #0a0c1b;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem;
+            background: #0a0c1b;
+            text-align: center;
+            border-top: 1px solid #00ffcc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer p {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: #00ffcc;
+            position: relative;
+        }
+
+        .footer p:hover {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(0, 255, 204, 0.05) 20px,
+                rgba(0, 255, 204, 0.05) 21px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 0 1remhow to display the sidebar on mobile devices in a responsive way.
