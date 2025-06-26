@@ -234,6 +234,16 @@
         .hero h1:hover {
             animation: glitch 0.3s linear infinite;
         }
+.hero h1 {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.hero {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
 
         /* Projects Section */
         .projects {
